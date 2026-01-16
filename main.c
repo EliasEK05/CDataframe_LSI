@@ -1,4 +1,6 @@
 #include "projet.h"
+#include "colonnes_ops.h"
+
 
 // Programme principal du CDataframe
 int main() {

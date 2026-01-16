@@ -1,4 +1,4 @@
-#include "projet.h"
+#include "tri.h"
 
 // Permute deux valeurs entières
 void permuter(int *a, int *b) {

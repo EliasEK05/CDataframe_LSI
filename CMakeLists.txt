@@ -11,4 +11,8 @@ add_executable(projetCDataframe_main
         colonne_ops.c
         cdt_creation.c
         main.c
-        projet.h)
+        projet.h
+        tri.h
+        dataframe_ops.h
+        colonnes_ops.h
+        cdt_creation.h)
