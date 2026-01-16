@@ -28,48 +28,43 @@ typedef struct {
     ENUM_TYPE column_type;
     COL_TYPE **data;
     unsigned long long int *index;
-    // index valid
-    // 0 : no index
-    // -1 : invalid index
-    // 1 : valid index
+    // État de l'index : 0=pas d'index, -1=invalide, 1=valide
     int valid_index;
-    // direction de tri Ascendant ou Déscendant
-    // 0 : ASC
-    // 1 : DESC
+    // Direction de tri : 0=ASC, 1=DESC
     int sort_dir;
 }COLUMN;
 
-//focntions pour une colonne :
+// Fonctions pour la gestion des colonnes :
 COLUMN *create_column(ENUM_TYPE type, char *title);
 int insert_value(COLUMN *col, void *value);
 void print_col(COLUMN* col);
 void delete_column(COLUMN **col);
-
-//fonctions concernant le CDT :
-COLUMN** cdt(int nb_col);
-COLUMN** cdt_vide(int nb_col);  // pas encore utilisé
+void add_col(COLUMN*** liste, int *taille);
+void suppr_col(COLUMN*** liste, int *taille);
+void renommer_col(COLUMN** liste, int taille);
 void convert_value(COLUMN *col, int i, char *str, int size);
-void affichage_cdt(COLUMN** liste, int nb_col);
+
+// Fonctions concernant la création du CDataframe :
+COLUMN** cdt(int nb_col);
+COLUMN** cdt_vide(int nb_col);
 void delete_cdt(COLUMN** liste, int nb_col);
 
-//fonctions pour les fonctionalité:
+// Fonctions pour les opérations sur le dataframe :
+void affichage_cdt(COLUMN** liste, int nb_col);
 void affichage_cdt_ligne(COLUMN** liste, int nb_col, int debut, int fin);
 void affichage_cdt_col(COLUMN** liste, int nb_col, int debut, int fin);
 void add_line(COLUMN** liste, int taille);
-void add_col(COLUMN*** liste, int *taille);
 void suppr_ligne(COLUMN** liste, int taille);
-void suppr_col(COLUMN*** liste, int *taille );
-void renommer_col(COLUMN** liste, int taille);
 int rechercher_val(COLUMN** liste, int taille);
 void remplacer_valeur(COLUMN** liste, int taille);
+void affichage_par_index(COLUMN** liste, int taille);
 
-//fonctions pour le tri :
+// Fonctions pour le tri des données :
 void permuter(int *a, int *b);
-void quicksort(COLUMN *col, int first, int last) ;
+void quicksort(COLUMN *col, int first, int last);
 int partition(COLUMN *col, int gauche, int droite);
 void tri_par_insertion(COLUMN *col);
 int compare(COL_TYPE *a, COL_TYPE *b, ENUM_TYPE type);
-void affichage_par_index(COLUMN** liste, int taille);
 
 
 

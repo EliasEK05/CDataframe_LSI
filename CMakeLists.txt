@@ -6,6 +6,9 @@ set(CMAKE_C_STANDARD 11)
 include_directories(.)
 
 add_executable(projetCDataframe_main
-        fonction.c
+        tri.c
+        dataframe_ops.c
+        colonne_ops.c
+        cdt_creation.c
         main.c
         projet.h)

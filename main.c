@@ -1,6 +1,6 @@
 #include "projet.h"
 
-
+// Programme principal du CDataframe
 int main() {
     printf("Bienvenu dans le concepteur de CDataframe\nVoulez vous remplir votre Dataframe par saisie utilisateur(0) ou en dur(1)?\n");
     int remplissage;
@@ -9,17 +9,15 @@ int main() {
 
     scanf("%d", &remplissage);
     if (remplissage == 0){
-
+        // Création par saisie utilisateur
         printf("Saisir le nombre de colonne souhaite dans le CDataframe: ");
         scanf("%d", &taille);printf("\n");
         liste_ptr = cdt(taille);
         affichage_cdt(liste_ptr, taille);
-
-
-
     }
     else{
         if (remplissage == 1){
+            // Création avec données prédéfinies
             taille = 5;
             liste_ptr = malloc(taille * sizeof(COLUMN*));
             liste_ptr[0] = create_column(STRING, "col_int");
@@ -28,12 +26,14 @@ int main() {
             liste_ptr[3] = create_column(DOUBLE, "col_double");
             liste_ptr[4] = create_column(INT, "col_string");
 
+            // Insertion des données de test
             int val[] = {145, 5, 10, 2, 0};
             char caractere[] = {'a', 'j', 'l', 'g', 'b'};
             float val2[] = {15.5, 18.9, 1.2, 0.2, 17.4};
             double val3[] = {15.5, 18.9, 1.2, 0.2, 17.4};
             char* mot[] = {"mot1", "Elias", "gnome","zebre", "arbre"};
-            for (int i =0; i<4; i++ ){                                  //Veillez ajuster la limite de la boucle en focntion du nombre de ligne
+            for (int i =0; i<4; i++ ){                                  
+                //Veillez ajuster la limite de la boucle en focntion du nombre de ligne
                 insert_value(liste_ptr[0], mot[i]);
                 insert_value(liste_ptr[1], &caractere[i]);
                 insert_value(liste_ptr[2], &val2[i]);
@@ -58,6 +58,7 @@ int main() {
 
 
 
+    // Menu principal des fonctionnalités
     int continuer = 1;
     while(continuer) {
         printf("\n\nLes fonctionnalites possible: \n");
@@ -119,6 +120,7 @@ int main() {
             }
             case 5:{
                 add_line(liste_ptr, taille);
+                // Invalide les index après ajout d'une ligne
                 for (int i=0; i<taille; i++)
                     liste_ptr[i]->valid_index = 2;
                 break;
@@ -129,6 +131,7 @@ int main() {
             }
             case 7:{
                 suppr_ligne(liste_ptr, taille);
+                // Invalide les index après suppression d'une ligne
                 for (int i=0; i<taille; i++)
                     liste_ptr[i]->valid_index = 2;
                 break;
@@ -170,6 +173,7 @@ int main() {
                 scanf("%d", &col);
                 if (col >= 0 && col < taille) {
                     if (liste_ptr[col]->valid_index == 0) {
+                        // Tri rapide si pas d'index
                         quicksort(liste_ptr[col], 0, liste_ptr[col]->taille_log - 1);
                         liste_ptr[col]->valid_index = 1;
                     }
@@ -177,6 +181,7 @@ int main() {
                         if(liste_ptr[col]->valid_index == 1)
                             printf("\nColonne deja triee");
                         if(liste_ptr[col]->valid_index == 2){
+                            // Tri par insertion si index invalide
                             tri_par_insertion(liste_ptr[col]);
                             liste_ptr[col]->valid_index = 1;
                         }
@@ -198,6 +203,7 @@ int main() {
 
 
     }
+    // Libération de la mémoire
     delete_cdt(liste_ptr, taille);
     free(liste_ptr);
     return 0;
